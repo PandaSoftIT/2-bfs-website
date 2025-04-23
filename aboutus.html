@@ -443,6 +443,40 @@
   transform: scale(1.05);
 }
 
+/* RESPONSIVE TYPOGRAPHY - universal clamp() like on index */
+.about-container h1 {
+  font-size: clamp(28px, 5vw, 58px);
+}
+
+.about-container h2,
+.about-container h2.about-mission {
+  font-size: clamp(22px, 4.5vw, 36px);
+}
+
+.about-container h4 {
+  font-size: clamp(18px, 3.8vw, 22px);
+}
+
+.about-container p,
+.about-mission p,
+.about-container ul li {
+  font-size: clamp(15px, 3vw, 18.5px);
+}
+
+.team-section h2 {
+  font-size: clamp(20px, 4vw, 34px);
+}
+
+.team-card p {
+  font-size: clamp(13px, 2.5vw, 15px);
+}
+
+.footer-left,
+.footer-center,
+.footer-right,
+.footer-right .back-to-top {
+  font-size: clamp(12px, 2.5vw, 15px);
+}
 
   </style>
 </head>
