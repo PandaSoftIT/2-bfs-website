@@ -647,6 +647,55 @@
     object-fit: contain;
   }
 }
+.hero-title {
+  font-weight: 800;
+  font-size: 56px;
+  line-height: 1.2;
+  margin-bottom: 15px;
+}
+
+.desktop-title {
+  display: block;
+}
+
+.mobile-title {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 36px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.desktop-motto {
+  font-size: 24px;
+  margin-bottom: 35px;
+  color: #09508a;
+  font-weight: 600;
+  display: block;
+  text-align: left;
+}
+
+.mobile-motto {
+  font-size: 16px;
+  margin-top: 10px;
+  font-weight: 500;
+  color: #ccc;
+}
+
+@media (max-width: 768px) {
+  .desktop-title {
+    display: none;
+  }
+
+  .mobile-title {
+    display: flex;
+  }
+
+  .desktop-motto {
+    display: none;
+  }
+}
 
   </style>
 </head>
@@ -695,11 +744,17 @@
   <!-- HERO SECTION -->
   <section class="hero">
     <div class="hero-left">
-      <h1 class="mobile-stacked-title">
-        <span class="line1">TWO BROTHERS</span><br>
-        <span class="line2">FREIGHT SOLUTION</span>
+      <h1 class="hero-title">
+        <span class="desktop-title">TWO BROTHERS FREIGHT SOLUTION</span>
+        <span class="mobile-title">
+          <span>TWO BROTHERS</span>
+          <span>FREIGHT SOLUTION</span>
+          <span class="mobile-motto">Speed. Vision. Brotherhood.</span>
+        </span>
       </h1>
-      <p class="motto">Speed. Vision. Brotherhood.</p>
+      
+      <p class="desktop-motto">Speed. Vision. Brotherhood.</p>
+      
       <button class="start-btn" onclick="scrollToWelcome()">Start Now</button>
     </div>
   
