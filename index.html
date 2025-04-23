@@ -601,6 +601,52 @@
 .footer-left, .footer-center, .footer-right {
   font-size: clamp(12px, 2vw, 15px);
 }
+.mobile-stacked-title {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-weight: 800;
+  font-size: 52px;
+  line-height: 1.1;
+  text-align: left;
+}
+
+.mobile-stacked-title span {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .mobile-stacked-title {
+    font-size: 36px;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .motto {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .start-btn {
+    width: 90%;
+    max-width: 320px;
+    margin: 0 auto 20px;
+    font-size: 17px;
+    padding: 14px 0;
+  }
+
+  .hero-right {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-right img {
+    width: 95%;
+    max-height: 280px;
+    object-fit: contain;
+  }
+}
 
   </style>
 </head>
@@ -649,15 +695,19 @@
   <!-- HERO SECTION -->
   <section class="hero">
     <div class="hero-left">
-      <h1>TWO BROTHERS FREIGHT SOLUTION</h1>
+      <h1 class="mobile-stacked-title">
+        <span class="line1">TWO BROTHERS</span><br>
+        <span class="line2">FREIGHT SOLUTION</span>
+      </h1>
       <p class="motto">Speed. Vision. Brotherhood.</p>
       <button class="start-btn" onclick="scrollToWelcome()">Start Now</button>
     </div>
-
+  
     <div class="hero-right">
       <img src="assets/truck.png" alt="Truck Image" />
     </div>
   </section>
+  
 
  <!-- SECȚIUNE WELCOME CU FAQ INCLUS -->
 <section id="welcome" class="welcome-section">

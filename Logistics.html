@@ -397,6 +397,87 @@ button.quote-btn,
 button.back-to-top {
   font-size: clamp(14px, 4vw, 17px);
 }
+@media (max-width: 768px) {
+  .logistics-container {
+    padding: 120px 20px 60px;
+    width: 95%;
+    margin: auto;
+    border-radius: 16px;
+  }
+
+  .logistics-container h1 {
+    font-size: clamp(30px, 5vw, 48px);
+    text-align: center;
+  }
+
+  .logistics-container p {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+
+  .logistics-features {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .feature-box {
+    padding: 16px;
+    text-align: center;
+  }
+
+  .feature-box h3 {
+    font-size: 18px;
+  }
+
+  .feature-box p {
+    font-size: 15px;
+  }
+
+  .logistics-container img {
+    max-width: 100%;
+    border-radius: 14px;
+  }
+
+  .logistics-container h2 {
+    font-size: clamp(22px, 5vw, 34px);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .logistics-container ul {
+    padding-left: 15px;
+    margin-top: 20px;
+  }
+
+  .logistics-container ul li {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .logistics-container a button {
+    width: 100%;
+    max-width: 280px;
+    font-size: 16px;
+  }
+
+  .footer-inner,
+  .footer-center,
+  .footer-left {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-left {
+    gap: 10px;
+  }
+
+  .footer-right {
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+  }
+}
 
   </style>
 </head>
