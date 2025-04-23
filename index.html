@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>2-BFS | Two Brothers Freight Solution</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  color: #f1f1f1;
+  scroll-behavior: smooth;
+  background: url('assets/way.png') center center / cover no-repeat fixed;
+  backdrop-filter: blur(10px);
+
+}
+
+
+.background-blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url('assets/way.png') center center / cover no-repeat;
+  z-index: -10;
+  filter: blur(12px) brightness(0.7);
+  opacity: 1;
+}
+
+/* === MOBILE MENU === */
+.mobile-menu-icon {
+  display: none;
+  font-size: 32px;
+  color: white;
+  cursor: pointer;
+  z-index: 9999;
+}
+
+/* HIDDEN BY DEFAULT ON DESKTOP */
+@media (max-width: 900px) {
+  .main-header {
+    flex-direction: column;
+    height: auto;
+    padding: 10px 20px;
+    align-items: flex-start;
+  }
+
+  .logo {
+    margin-bottom: 10px;
+  }
+
+  .menu {
+    display: none;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 10px;
+    margin-top: 10px;
+  }
+
+  .menu ul {
+    flex-direction: column;
+    padding: 10px;
+    gap: 15px;
+  }
+
+  .menu ul li a, .quote-btn {
+    width: 100%;
+    display: block;
+    text-align: left;
+    font-size: 18px;
+  }
+
+  .trapez {
+    position: relative;
+    transform: none;
+    padding: 14px 20px;
+    font-size: 20px;
+    width: 100%;
+    clip-path: none;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .mobile-menu-icon {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+
+  .menu.active {
+    display: block;
+  }
+
+  /* Drop-down pe mobil */
+  .dropdown-content {
+    position: static;
+    opacity: 1;
+    background-color: transparent;
+    box-shadow: none;
+    padding-left: 15px;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropdown-content a {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    margin-top: 5px;
+    border-radius: 6px;
+    padding-left: 10px;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #09508a;
+    color: #fff;
+  }
+
+  /* Footer responsive */
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-center {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .footer-left, .footer-right {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .footer-left {
+    flex-direction: row;
+    justify-content: start;
+  }
+
+  .footer-right {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+}
+
+    .main-header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 80px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(2px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 50px;
+      z-index: 10;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .logo img {
+      width: 65px;
+    }
+
+    .trapez {
+      background: #000;
+      color: white;
+      padding: 23px 80px;
+      font-size: 24px;
+      font-weight: bold;
+      clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 20px rgba(1, 74, 116, 0.5);
+    }
+
+    .menu ul {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .menu ul li a {
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 17px;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .menu ul li a:hover {
+      color: #09508a;
+    }
+
+    .quote-btn {
+      background: #09508a;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(1, 66, 151, 0.3);
+    }
+
+    .quote-btn:hover {
+      background: #09508a;
+      transform: scale(1.05);
+    }
+
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 100vh;
+      padding: 120px 80px 60px;
+      z-index: 1;
+      position: relative;
+    }
+
+    .hero-left {
+      max-width: 50%;
+      animation: slideLeft 1s ease forwards;
+    }
+
+    .hero-left h1 {
+      font-size: 56px;
+      font-weight: 800;
+      margin-bottom: 25px;
+      line-height: 1.2;
+    }
+
+    .motto {
+      font-size: 24px;
+      margin-bottom: 35px;
+      color: #09508a;
+      font-weight: 600;
+    }
+
+    .start-btn {
+      padding: 14px 28px;
+      font-size: 17px;
+      background-color: #003366;
+      color: #ffffff;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .start-btn:hover {
+      background-color: #001f4d;
+      transform: scale(1.06);
+    }
+
+    .hero-right img {
+      width: 100%;
+      max-height: 90%;
+      object-fit: contain;
+      animation: truckIn 1.5s ease forwards;
+    }
+
+    @keyframes slideLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-60px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes truckIn {
+      from {
+        opacity: 0;
+        transform: translateX(60px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+    }
+
+    .welcome-section {
+  padding: 120px 80px;
+  min-height: 100vh;
+  background: rgba(255, 255, 255, 0.25); /* mai transparent */
+  backdrop-filter: blur(14px); /* blur mai puternic */
+  border-radius: 20px;
+  margin: 60px auto;
+  width: 90%;
+  box-shadow: 0 0 60px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+
+.welcome-section h2 {
+  font-size: 48px;
+  color: #002244; /* mai închis */
+  margin-bottom: 30px;
+}
+
+.welcome-section p {
+  font-size: 20px;
+  line-height: 1.7;
+  max-width: 900px;
+  color: #111; /* mai contrastat */
+}
+.faq-list {
+  width: 100%;
+  max-width: 800px;
+  margin-top: 30px;
+  text-align: left;
+}
+
+.faq-box {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.faq-box:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+.faq-question {
+  padding: 20px 25px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #002244;
+}
+
+.faq-answer {
+  padding: 0 25px 20px;
+  font-size: 17px;
+  color: #111;
+  line-height: 1.6;
+  display: none;
+}
+
+.faq-answer a {
+  color: #003366;
+  font-weight: bold;
+  text-decoration: underline;
+}
+.site-footer {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 30px 40px;
+  color: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  margin-top: 80px;
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.footer-logo {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
+.footer-center {
+  font-size: 15px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.footer-center a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer-center a:hover {
+  color: #0077cc;
+}
+
+.footer-right .back-to-top {
+  padding: 8px 16px;
+  font-size: 14px;
+  background: #003366;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.footer-right .back-to-top:hover {
+  background: #001f4d;
+  transform: scale(1.05);
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #ffffff;
+  opacity: .4;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #a1a2a3;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #001f4d;}
+
+
+  </style>
+</head>
+<body>
+  <div class="background-blur"></div>
+
+
+
+  <!-- HEADER -->
+  <header class="main-header">
+    <div class="logo">
+      <a href="index.html">
+        <img src="assets/bfs.jpg" alt="2-BFS Logo">
+      </a>
+    </div>
+    
+
+    <div class="trapez">
+      <span>2-BFS</span>
+    </div>
+    <div class="mobile-menu-icon" onclick="toggleMobileMenu()">
+      ☰
+    </div>
+    
+    <nav class="menu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="aboutus.html">About us</a></li>
+        <div class="dropdown">
+          <li><a href="service.html">Services</a></li>
+          <div class="dropdown-content">
+            <a href="dispatchers.html">Dispatching</a>
+            <a href="accounting.html">Accounting</a>
+            <a href="Logistics.html">Logistic</a>
+            <a href="brockerage.html">Brackerage</a>
+            <a href="transport.html">Transport Managerment</a>
+          </div>
+        </div>
+        <li><a href="fts.html">FTS</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="raq.html"><button class="quote-btn">Request a Quote!</button></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-left">
+      <h1>TWO BROTHERS FREIGHT SOLUTION</h1>
+      <p class="motto">Speed. Vision. Brotherhood.</p>
+      <button class="start-btn" onclick="scrollToWelcome()">Start Now</button>
+    </div>
+
+    <div class="hero-right">
+      <img src="assets/truck.png" alt="Truck Image" />
+    </div>
+  </section>
+
+ <!-- SECȚIUNE WELCOME CU FAQ INCLUS -->
+<section id="welcome" class="welcome-section">
+  <h2>Welcome to 2-BFS | Two Brothers Freight Solution</h2>
+  <p>
+    At 2-BFS, we don’t just move freight — we move businesses forward. Our mission is to offer you complete logistics peace of mind so you can focus on what truly matters: growing your company.
+    Whether you're a small carrier or a large fleet, our team ensures every shipment is handled with precision, care, and unmatched professionalism.
+    <br><br>
+    From dispatching to accounting, from route optimization to real-time tracking — we do it all. Our innovative approach blends modern technology with old-school dedication, providing a freight solution where speed meets reliability, and where every mile strengthens the bond between us.
+    <br><br>
+    Welcome to the new era of trucking. Welcome to brotherhood. Welcome to 2-BFS.
+  </p>
+
+  <h2 style="margin-top: 60px;">What do you need?</h2>
+  <div class="faq-list">
+    <div class="faq-box" onclick="toggleFAQ(this)">
+      <div class="faq-question">1. Do you need more high-paying loads?</div>
+      <div class="faq-answer">
+        If you’re looking for reliable dispatchers that bring you better-paying loads, <a href="#dispatchers">go to Dispatchers</a>.  
+        <br>We offer strategic load matching, market insights and real-time communication with brokers.
+      </div>
+    </div>
+
+    <div class="faq-box" onclick="toggleFAQ(this)">
+      <div class="faq-question">2. Need faster, cleaner, more accurate accounting?</div>
+      <div class="faq-answer">
+        Get access to our dedicated team of freight accountants. <a href="#accounting">Go to Accounting</a>.  
+        <br>We help you stay organized, pay drivers on time and never miss a deadline.
+      </div>
+    </div>
+
+    <div class="faq-box" onclick="toggleFAQ(this)">
+      <div class="faq-question">3. Need a transport or a truck, right now?</div>
+      <div class="faq-answer">
+        We provide access to trucks and carriers all over the US. <a href="#logistic">Go to Logistics</a>.  
+        <br>From flatbeds to reefers, we’ve got you covered in minutes.
+      </div>
+    </div>
+
+    <div class="faq-box" onclick="toggleFAQ(this)">
+      <div class="faq-question">4. Are you a shipper struggling to find the right broker?</div>
+      <div class="faq-answer">
+        We match shippers with verified, performance-based brokers. <a href="#shipper">Go to Shipper Solutions</a>.  
+        <br>Faster response, less hassle, better service.
+      </div>
+    </div>
+
+    <div class="faq-box" onclick="toggleFAQ(this)">
+      <div class="faq-question">5. Looking for a smart software that does everything?</div>
+      <div class="faq-answer">
+        Our platform automates 80% of your logistics workflow. <a href="http://127.0.0.1:5500/fts.html#">Go to FTS</a>.  
+        <br>Dispatch, tracking, accounting and document management — all in one.
+      </div>
+    </div>
+
+    <div class="faq-box" onclick="toggleFAQ(this)">
+      <div class="faq-question">6. Need a manager to run your whole trucking company?</div>
+      <div class="faq-answer">
+        From driver training to fleet scheduling, we manage it for you. <a href="#management">Go to Transport Management</a>.  
+        <br>You relax, we run the engine.
+      </div>
+    </div>
+  </div>
+
+  <p class="faq-description">
+    At 2-BFS, we offer more than services — we offer solutions.  
+    No matter your role in the transportation industry, we bring you tools, people and systems that work together to simplify, accelerate and elevate everything you do.
+  </p>
+</section>
+
+  
+  <!-- SCRIPT -->
+  <script>
+    function scrollToWelcome() {
+      document.body.style.overflow = 'auto';
+      document.getElementById("welcome").scrollIntoView({ behavior: "smooth" });
+    }
+    function scrollToTop() {
+  document.body.style.overflow = 'auto'; // activăm scroll-ul dacă e blocat
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function toggleMobileMenu() {
+    const menu = document.querySelector('.menu');
+    menu.classList.toggle('active');
+  }
+    function toggleFAQ(box) {
+      const answer = box.querySelector('.faq-answer');
+      const allAnswers = document.querySelectorAll('.faq-answer');
+      allAnswers.forEach(a => {
+        if (a !== answer) a.style.display = 'none';
+      });
+      answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-left">
+      <a href="index.html">
+        <img src="assets/bfs.jpg" alt="2-BFS Logo" class="footer-logo">
+      </a>
+      
+      <p>© 2025 2-BFS<br>All rights reserved.</p>
+    </div>
+    <div class="footer-center">
+      <a href="#privacy-policy">Privacy Policy</a>
+      <span>|</span>
+      <a href="#terms-conditions">Terms & Conditions</a>
+    </div>
+    <div class="footer-right">
+      <button class="back-to-top" onclick="scrollToTop()">Back to Top</button>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
