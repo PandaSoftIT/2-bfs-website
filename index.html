@@ -439,6 +439,76 @@
   box-shadow: 0 8px 24px rgba(0,0,0,0.1);
 }
 
+.faq-box {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.faq-box:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.01);
+}
+
+.faq-question {
+  padding: 18px 20px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #002244;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-question::after {
+  content: '+';
+  font-size: 24px;
+  font-weight: bold;
+  color: #09508a;
+  transition: transform 0.3s ease;
+}
+
+.faq-box.open .faq-question::after {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  padding: 0 20px 20px;
+  font-size: 17px;
+  color: #111;
+  line-height: 1.6;
+  display: none;
+}
+
+.faq-box.open .faq-answer {
+  display: block;
+}
+
+/* MOBILE RESPONSIVE FAQ */
+@media (max-width: 768px) {
+  .faq-question {
+    font-size: 18px;
+    padding: 16px 18px;
+  }
+
+  .faq-answer {
+    font-size: 16px;
+    padding: 0 18px 18px;
+  }
+
+  .faq-box {
+    margin-bottom: 16px;
+  }
+}
+
+
 .welcome-section::before {
   content: "";
   position: absolute;
@@ -931,7 +1001,7 @@ function toggleMobileMenu() {
       <a href="#terms-conditions">Terms & Conditions</a>
     </div>
     <div class="footer-right">
-      <button class="back-to-top" onclick="scrollToTop()">Back to Top</button>
+
     </div>
   </div>
 </footer>
