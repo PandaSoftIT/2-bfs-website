@@ -412,17 +412,43 @@
     .welcome-section {
   padding: 120px 80px;
   min-height: 100vh;
-  background: rgba(255, 255, 255, 0.25); /* mai transparent */
-  backdrop-filter: blur(14px); /* blur mai puternic */
-  border-radius: 20px;
+  background: url('assets/image.png') center top / cover no-repeat fixed;
+  background-attachment: fixed;
+  position: relative;
   margin: 60px auto;
   width: 90%;
-  box-shadow: 0 0 60px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+/* container semi-transparent direct pe text */
+.welcome-section h2,
+.welcome-section p,
+.faq-list {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 30px;
+  border-radius: 16px;
+  color: #111;
+  max-width: 900px;
+  margin-bottom: 30px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.welcome-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5); /* overlay întunecat */
+  z-index: 0;
+}
+.welcome-section > * {
+  position: relative;
+  z-index: 1;
 }
 
 
@@ -684,6 +710,7 @@
   </style>
 </head>
 <body>
+  
   <div class="background-blur"></div>
 
 
@@ -750,6 +777,7 @@
 
  <!-- SECȚIUNE WELCOME CU FAQ INCLUS -->
 <section id="welcome" class="welcome-section">
+  
   <h2>Welcome to 2-BFS | Two Brothers Freight Solution</h2>
   <p>
     At 2-BFS, we don’t just move freight — we move businesses forward. Our mission is to offer you complete logistics peace of mind so you can focus on what truly matters: growing your company.
@@ -760,63 +788,110 @@
     Welcome to the new era of trucking. Welcome to brotherhood. Welcome to 2-BFS.
   </p>
 
-  <h2 style="margin-top: 60px;">What do you need?</h2>
+  <h2 style="margin-top: 60px;">FAQ – Frequently Asked Questions</h2>
   <div class="faq-list">
     <div class="faq-box" onclick="toggleFAQ(this)">
-      <div class="faq-question">1. Do you need more high-paying loads?</div>
-      <div class="faq-answer">
-        If you’re looking for reliable dispatchers that bring you better-paying loads, <a href="#dispatchers">go to Dispatchers</a>.  
-        <br>We offer strategic load matching, market insights and real-time communication with brokers.
-      </div>
+      <div class="faq-question">1. Who is 2-BFS?</div>
+      <div class="faq-answer">2-BFS stands for "Two Brothers Freight Solution" – a modern logistics company built on brotherhood, speed and precision.</div>
     </div>
-
+    
     <div class="faq-box" onclick="toggleFAQ(this)">
-      <div class="faq-question">2. Need faster, cleaner, more accurate accounting?</div>
-      <div class="faq-answer">
-        Get access to our dedicated team of freight accountants. <a href="#accounting">Go to Accounting</a>.  
-        <br>We help you stay organized, pay drivers on time and never miss a deadline.
-      </div>
+      <div class="faq-question">2. What services does 2-BFS offer?</div>
+      <div class="faq-answer">We provide dispatching, accounting, logistics coordination, brokerage, transport management, and our own software platform (FTS).</div>
     </div>
-
+  
     <div class="faq-box" onclick="toggleFAQ(this)">
-      <div class="faq-question">3. Need a transport or a truck, right now?</div>
-      <div class="faq-answer">
-        We provide access to trucks and carriers all over the US. <a href="#logistic">Go to Logistics</a>.  
-        <br>From flatbeds to reefers, we’ve got you covered in minutes.
-      </div>
+      <div class="faq-question">3. How do you work as brokers?</div>
+      <div class="faq-answer">We connect shippers to high-performance brokers that guarantee quality and performance, with full transparency and tracking.</div>
     </div>
-
+  
     <div class="faq-box" onclick="toggleFAQ(this)">
-      <div class="faq-question">4. Are you a shipper struggling to find the right broker?</div>
-      <div class="faq-answer">
-        We match shippers with verified, performance-based brokers. <a href="#shipper">Go to Shipper Solutions</a>.  
-        <br>Faster response, less hassle, better service.
-      </div>
+      <div class="faq-question">4. Do you offer dispatch services?</div>
+      <div class="faq-answer">Yes! Our dispatchers find the best loads and negotiate top rates with brokers — 24/7 availability included.</div>
     </div>
-
+  
     <div class="faq-box" onclick="toggleFAQ(this)">
-      <div class="faq-question">5. Looking for a smart software that does everything?</div>
-      <div class="faq-answer">
-        Our platform automates 80% of your logistics workflow. <a href="http://127.0.0.1:5500/fts.html#">Go to FTS</a>.  
-        <br>Dispatch, tracking, accounting and document management — all in one.
-      </div>
+      <div class="faq-question">5. What is the FTS Platform?</div>
+      <div class="faq-answer">FTS is our custom software that automates dispatching, accounting, document sharing, tracking and communication.</div>
     </div>
-
+  
     <div class="faq-box" onclick="toggleFAQ(this)">
-      <div class="faq-question">6. Need a manager to run your whole trucking company?</div>
-      <div class="faq-answer">
-        From driver training to fleet scheduling, we manage it for you. <a href="#management">Go to Transport Management</a>.  
-        <br>You relax, we run the engine.
-      </div>
+      <div class="faq-question">6. Can I get accounting help for my trucking business?</div>
+      <div class="faq-answer">Absolutely. We offer payroll, taxes, invoice management, IFTA reports, and much more — all digital and easy to access.</div>
+    </div>
+  
+    <div class="faq-box" onclick="toggleFAQ(this)">
+      <div class="faq-question">7. Do you manage drivers and fleets?</div>
+      <div class="faq-answer">Yes. Through our Transport Management service, we help with driver recruitment, scheduling, compliance, and more.</div>
+    </div>
+  
+    <div class="faq-box" onclick="toggleFAQ(this)">
+      <div class="faq-question">8. What types of trucks do you work with?</div>
+      <div class="faq-answer">Dry vans, reefers, flatbeds, hotshots, power-only — we support all types of trucking equipment.</div>
+    </div>
+  
+    <div class="faq-box" onclick="toggleFAQ(this)">
+      <div class="faq-question">9. Is 2-BFS suitable for small carriers?</div>
+      <div class="faq-answer">Yes. Whether you have 1 truck or 50, we scale with you. You get dedicated attention and tools that grow with your business.</div>
+    </div>
+  
+    <div class="faq-box" onclick="toggleFAQ(this)">
+      <div class="faq-question">10. Do you help with IFTA reporting?</div>
+      <div class="faq-answer">Yes, we handle all IFTA quarterly filings, fuel usage tracking, and mileage reporting across US & Canada.</div>
+    </div>
+  
+    <div class="faq-box" onclick="toggleFAQ(this)">
+      <div class="faq-question">11. How fast can I start?</div>
+      <div class="faq-answer">Same-day onboarding. You send your documents, we activate your service, and you're ready to move freight.</div>
+    </div>
+  
+    <div class="faq-box" onclick="toggleFAQ(this)">
+      <div class="faq-question">12. What makes 2-BFS different?</div>
+      <div class="faq-answer">Brotherhood. We treat your business like it's ours. You're never a number here — you're a partner.</div>
+    </div>
+  
+    <div class="faq-box" onclick="toggleFAQ(this)">
+      <div class="faq-question">13. Do you track my shipments live?</div>
+      <div class="faq-answer">Yes, we offer live tracking and constant updates through GPS, ELDs or manual location sharing.</div>
+    </div>
+  
+    <div class="faq-box" onclick="toggleFAQ(this)">
+      <div class="faq-question">14. Can I customize your services?</div>
+      <div class="faq-answer">Yes. You choose what you need — dispatch only, accounting only, or full-service management. We adapt to you.</div>
+    </div>
+  
+    <div class="faq-box" onclick="toggleFAQ(this)">
+      <div class="faq-question">15. Is there a contract?</div>
+      <div class="faq-answer">No long-term contracts. We work week-to-week, performance-based. You stay because it works — not because you’re locked in.</div>
+    </div>
+  
+    <div class="faq-box" onclick="toggleFAQ(this)">
+      <div class="faq-question">16. How much does it cost?</div>
+      <div class="faq-answer">It depends on the service. Dispatch is percentage-based. Accounting and other tools have flat monthly plans. Contact us for details.</div>
+    </div>
+  
+    <div class="faq-box" onclick="toggleFAQ(this)">
+      <div class="faq-question">17. Do I need special software?</div>
+      <div class="faq-answer">No. We give you access to our FTS platform (web + mobile). Easy to use, no installation needed.</div>
+    </div>
+  
+    <div class="faq-box" onclick="toggleFAQ(this)">
+      <div class="faq-question">18. Can I see a demo of your platform?</div>
+      <div class="faq-answer">Yes. Just contact us, and we’ll walk you through it — live or recorded.</div>
+    </div>
+  
+    <div class="faq-box" onclick="toggleFAQ(this)">
+      <div class="faq-question">19. Do you work with owner-operators?</div>
+      <div class="faq-answer">Of course. Many of our clients are owner-ops that rely on us for dispatch, accounting and paperwork.</div>
+    </div>
+  
+    <div class="faq-box" onclick="toggleFAQ(this)">
+      <div class="faq-question">20. How do I get started?</div>
+      <div class="faq-answer">Click “Request a Quote” or contact us directly. We’ll explain everything step-by-step and get you moving fast.</div>
     </div>
   </div>
-
-  <p class="faq-description">
-    At 2-BFS, we offer more than services — we offer solutions.  
-    No matter your role in the transportation industry, we bring you tools, people and systems that work together to simplify, accelerate and elevate everything you do.
-  </p>
+  
 </section>
-
   
   <!-- SCRIPT -->
   <script>
